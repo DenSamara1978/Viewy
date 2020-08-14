@@ -1,6 +1,6 @@
-package ru.melandra.viewy;
+package ru.melandra.viewy.model;
 
-import android.util.Log;
+import ru.melandra.viewy.Constants;
 
 import static ru.melandra.viewy.Constants.DBG_TAG;
 
@@ -9,6 +9,9 @@ public class Model implements Constants {
 
     public void fixAction() {
         ++counter;
-        Log.d(DBG_TAG, "Counter is equal " + counter);
+    }
+
+    public int getCount() {
+        return counter;
     }
 }
