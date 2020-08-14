@@ -1,21 +1,22 @@
 package ru.melandra.viewy.presenter;
 
+import moxy.InjectViewState;
+import moxy.MvpPresenter;
 import ru.melandra.viewy.Constants;
 import ru.melandra.viewy.model.Model;
 import ru.melandra.viewy.view.MainView;
 
-public class MainPresenter implements Constants {
+@InjectViewState
+public class MainPresenter extends MvpPresenter<MainView> implements Constants {
 
     private Model model;
-    private MainView mainView;
 
-    public MainPresenter(MainView mainView){
-        this.mainView = mainView;
+    public MainPresenter(){
         this.model = new Model();
     }
 
     public void onClickImage(){
         model.fixAction();
-        mainView.showCount(model.getCount());
+        getViewState().showCount(model.getCount());
     }
 }

@@ -7,21 +7,29 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 
+import moxy.MvpAppCompatActivity;
+import moxy.presenter.InjectPresenter;
+import moxy.presenter.ProvidePresenter;
 import ru.melandra.viewy.Constants;
 import ru.melandra.viewy.presenter.MainPresenter;
 import ru.melandra.viewy.presenter.MainRecyclerViewAdapter;
 import ru.melandra.viewy.R;
 
-public class MainActivity extends AppCompatActivity implements MainView, Constants {
+public class MainActivity extends MvpAppCompatActivity implements MainView, Constants {
 
+    @InjectPresenter
     MainPresenter presenter;
+
+//    @ProvidePresenter
+  //  public MainPresenter providePresenter() {
+    //    return new MainPresenter();
+ //   }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        presenter = new MainPresenter(this);
         initRecyclerView();
     }
 

@@ -6,12 +6,17 @@ android {
 
     defaultConfig {
         applicationId "ru.melandra.viewy"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     buildTypes {
@@ -32,7 +37,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation 'com.arello-mobile:moxy:1.1.1'
-    implementation 'com.arello-mobile:moxy-android:1.1.1'
-    annotationProcessor 'com.arello-mobile:moxy-compiler:1.1.1'
+    implementation 'com.github.moxy-community:moxy:2.1.2'
+    annotationProcessor 'com.github.moxy-community:moxy-compiler:2.1.2'
+    implementation 'com.github.moxy-community:moxy-androidx:2.1.2'
+    implementation 'com.github.moxy-community:moxy-material:2.1.2'
 }
