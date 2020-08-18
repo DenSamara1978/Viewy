@@ -10,14 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import ru.melandra.viewy.R;
+import ru.melandra.viewy.model.API.Hit;
+import ru.melandra.viewy.presenter.GlideLoader;
 import ru.melandra.viewy.presenter.MainPresenter;
 
 public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerViewAdapter.ViewHolder> {
 
     private AdapterView.OnItemClickListener listener;
+    private MainPresenter presenter;
 
     public MainRecyclerViewAdapter(MainPresenter presenter, AdapterView.OnItemClickListener listener) {
         this.listener = listener;
+        this.presenter = presenter;
     }
 
     @NonNull
@@ -31,12 +35,12 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.imageView.setOnClickListener(v -> holder.listener.onItemClick(null, v, position, 0));
-        holder.setImage(R.drawable.ic_sample_image);
+        GlideLoader.loadImage ( holder.imageView, presenter.getHit ( position ).previewUrl );
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        return presenter.getHitsSize();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -48,10 +52,6 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             this.listener = listener;
-        }
-
-        public void setImage(int image) {
-            imageView.setImageResource(image);
         }
     }
 }

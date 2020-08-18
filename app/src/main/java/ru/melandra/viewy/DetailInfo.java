@@ -5,12 +5,15 @@ import android.os.Parcelable;
 
 public class DetailInfo implements Parcelable {
     public int position;
+    public String url;
 
-    public DetailInfo(int position) {
+    public DetailInfo(int position, String url) {
+        this.url = url;
         this.position = position;
     }
 
     protected DetailInfo(Parcel in) {
+        url = in.readString ();
         position = in.readInt();
     }
 
@@ -33,6 +36,7 @@ public class DetailInfo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString (url);
         dest.writeInt(position);
     }
 }
