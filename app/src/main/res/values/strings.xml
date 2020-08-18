@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">MainActivity</string>
+    <string name="app_name">Viewy</string>
+    <string name="detail_image">Detail Image</string>
 </resources>

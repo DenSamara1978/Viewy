@@ -1,43 +1,54 @@
 package ru.melandra.viewy.view;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import moxy.MvpAppCompatActivity;
 import moxy.presenter.InjectPresenter;
-import moxy.presenter.ProvidePresenter;
 import ru.melandra.viewy.Constants;
+import ru.melandra.viewy.DetailInfo;
+import ru.melandra.viewy.presenter.DetailPresenter;
 import ru.melandra.viewy.presenter.MainPresenter;
-import ru.melandra.viewy.presenter.MainRecyclerViewAdapter;
 import ru.melandra.viewy.R;
 
 public class MainActivity extends MvpAppCompatActivity implements MainView, Constants {
 
+    @BindView ( R.id.mainRecycler )
+    RecyclerView recyclerView;
+
     @InjectPresenter
     MainPresenter presenter;
-
-//    @ProvidePresenter
-  //  public MainPresenter providePresenter() {
-    //    return new MainPresenter();
- //   }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ButterKnife.bind ( this );
+
         initRecyclerView();
     }
 
     private void initRecyclerView() {
-        RecyclerView recyclerView = findViewById(R.id.mainRecycler);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager (this, 2);
         recyclerView.setLayoutManager(layoutManager);
-        MainRecyclerViewAdapter adapter = new MainRecyclerViewAdapter(presenter);
+        MainRecyclerViewAdapter adapter = new MainRecyclerViewAdapter(presenter, (adapterView, view, position, id) ->
+        {
+            Bundle extras = new Bundle();
+            DetailInfo info = new DetailInfo(position);
+            extras.putParcelable(DETAIL_ARGUMENTS, info);
+
+            Intent intent = new Intent(this, DetailActivity.class);
+            intent.putExtras(extras);
+            startActivity(intent);
+        });
         recyclerView.setAdapter(adapter);
     }
 
